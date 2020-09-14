@@ -7,7 +7,7 @@ type
   cantParticipantes = 1..maxParticipantes;
 
   regParticipante = record
-    codigo : cantParticipantes;
+    codigo : integer;
     edad : integer;
   end;
 
@@ -23,7 +23,7 @@ procedure leerParticipante(var participante : regParticipante);
 begin
   writeln('Codigo: ');
   readln(participante.codigo);
-  if(participante.codigo <> -1) then begin
+  if(participante.codigo <> ultimoCod) then begin
     writeln('Edad:');
     readln(participante.edad);
   end;
@@ -101,6 +101,7 @@ begin
     aux := listaParticipantes;
     if(aux = nil) then
       listaParticipantes := nodo
+
     else begin
       // va hasta al final para insertar
       while(aux^.sig <> nil) do
