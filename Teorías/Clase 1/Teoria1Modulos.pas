@@ -1,14 +1,22 @@
-// Modulo que carga un arreglo hasta 20 números
+// Modulo que agrega un elemento al final de un arreglo (de ser posible)
+procedure agregar(var numeros : arrNum; var diml: integer; num : integer);
+begin
+  if(diml < dimf) then begin
+    diml := diml + 1;
+    numeros[diml] := num;
+  end;
+end;
+
+// Modulo que carga un arreglo hasta dimf (constante) números, máximo.
 procedure cargarNumeros(var numeros : arrNum; var diml : integer);
 var
   aux : integer;
 begin
   diml := 0;
   readln(aux);
-  while((diml < 20) and (aux <> 0)) do begin
-    diml := diml + 1;
-    numeros[diml] := aux;
-    if(diml < 20) then readln(aux);
+  while((diml < dimf) and (aux <> 0)) do begin
+    agregar(numeros, diml, num);
+    readln(aux);
   end;
 end;
 
