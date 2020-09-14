@@ -65,7 +65,7 @@ begin
   iniciarArrayDeListas(peliculas);
   leerDatosPelicula(aux);
   while((aux.codigoPelicula <> -1)) do begin
-    agregarAlFinal(peliculas[pelicula.codigoPelicula], aux);
+    agregarAlFinal(peliculas[aux.codigoPelicula], aux);
     leerDatosPelicula(aux);
   end;
 end;
