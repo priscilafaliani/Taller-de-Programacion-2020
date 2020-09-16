@@ -36,8 +36,7 @@ function sumarValores(numeros : arrNumeros; cantNumeros, suma : integer): intege
 begin
   if(cantNumeros = 0) then sumarValores := suma
   else begin
-    suma := suma + numeros[cantNumeros];
-    sumarValores := sumarValores(numeros, (cantNumeros - 1), suma);
+    sumarValores := numeros[cantNumeros] + sumarValores(numeros, (cantNumeros - 1), suma);
   end;
 end;
 
