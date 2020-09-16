@@ -1,8 +1,10 @@
 program ejercicio3;
 const
   cantRubros = 6;
+  cantRubro3 = 30;
 type
   rRubros = 1..cantRubros;
+  rCantRubro3 = 1..cantRubro3;
 
   regProducto = record
     codigoProducto : integer;
@@ -16,15 +18,18 @@ type
     sig : listaPtr;
   end;
 
+  arrProductosRubro3 = array[rCantRubro3] of regProducto;
+
 { Modulos de carga y ordenamiento de productos }
 
 // Lee un registro producto
 procedure cargarProducto(var producto : regProducto);
 begin
-  writeln('Codigo de producto: ');
-  readln(producto.codigoProducto);
-  writeln('Codigo de rubro: ');
-  readln(producto.codigoRubro);
+  randomize();
+  writeln('Codigo producto: ');
+  producto.codigoProducto := random(101);
+  writeln('Codigo rubro: ');
+  producto.codigoRubro := random(6) + 1;
   writeln('Precio: ');
   readln(producto.precio);
 end;
@@ -39,38 +44,37 @@ begin
   crearNodo := nodo;
 end;
 
-procedure buscarRubro(rubro : rRubros; var actual, anterior : listaPtr);
-begin
-  while((actual <> nil) and (actual^.datos.codigoRubro <> rubro)) do begin
-    anterior := actual;
-    actual := actual^.sig;
-  end;
-end;
-
 procedure agregarProducto(var productos : listaPtr; producto : regProducto);
 var
   nodo, actual, anterior : listaPtr;
 begin
   nodo := crearNodo(producto);
-  // Busca el rubro para agruparlo y la posición dentro del rubro por codigo de producto
-  actual := productos;
-  buscarRubro(producto.codigoRubro, actual, anterior);
 
-  while((actual <> nil) and (nodo^.datos.codigoRubro <> actual^.datos.codigoRubro)) do begin
+  actual := productos; anterior := productos;
+  // Avanza en la lista mientras no haya llegado al final, encontrado el rubro o encontrado la posición en el rubro.
+  while((actual <> nil) and (((actual^.datos.codigoRubro <> producto.codigoRubro) and (anterior^.datos.codigoRubro <> producto.codigoRubro)) or
+  ((actual^.datos.codigoRubro = producto.codigoRubro) and (producto.codigoProducto > actual^.datos.codigoProducto)))) do begin
     anterior := actual;
     actual := actual^.sig;
   end;
-
-  while((actual <> nil) and ((nodo^.datos.codigoProducto > actual^.datos.codigoProducto) and (nodo^.datos.codigoRubro = actual^.datos.codigoRubro))) do begin
-    anterior := actual;
-    actual := actual^.sig;
-  end;
-
   if(actual = productos) then
     productos := nodo
   else
     anterior^.sig := nodo;
   nodo^.sig := actual;
+end;
+
+procedure imprimirProductos(productos : listaPtr);
+var actual : rRubros;
+begin
+  while(productos <> nil) do begin
+    actual := productos^.datos.codigoRubro;
+    writeln('Rubro: ', actual);
+    while((productos <> nil) and (actual = productos^.datos.codigoRubro)) do begin
+      writeln('   Producto: ', productos^.datos.codigoProducto);
+      productos := productos^.sig;
+    end;
+  end;
 end;
 
 procedure crearListaProductos(var productos : listaPtr);
@@ -83,34 +87,58 @@ begin
   end;
 end;
 
-procedure imprimirProductosPorRubro(productos : listaPtr);
-var actual : rRubros;
+procedure crearArregloRubro3(var productosRubro3 : arrProductosRubro3; var diml : integer; productos : listaPtr);
 begin
-  while(productos <> nil) do begin
-    actual := productos^.datos.codigoRubro;
-    writeln('Rubro ', actual, ': ');
-    while((productos <> nil) and (productos^.datos.codigoRubro = actual)) do begin
-      writeln('Producto: ', productos^.datos.codigoProducto);
-      productos := productos^.sig;
+  diml := 0;
+  // Busca el rubro 3
+  while((productos <> nil) and (productos^.datos.codigoRubro <> 3)) do
+    productos := productos^.sig;
+  // Guarda hasta 30 productos del rubro 3
+  while((productos <> nil) and (productos^.datos.codigoRubro = 3) and (diml < cantRubro3)) do begin
+    diml := diml + 1;
+    productosRubro3[diml] := productos^.datos;
+    productos := productos^.sig;
+  end;
+  writeln('Dimension: ', diml);
+end;
+
+procedure ordenarPorPrecio(var prodRubro3 : arrProductosRubro3; diml : integer);
+var
+  i, j : integer;
+  actual : regProducto;
+begin
+  for i := 2 to diml do begin
+    actual := prodRubro3[i];
+    j := i - 1;
+    while((j > 0) and (prodRubro3[j].precio > actual.precio)) do begin
+      prodRubro3[j + 1] := prodRubro3[j];
+      j := j - 1;
     end;
+    prodRubro3[j + 1] := actual;
   end;
 end;
 
-procedure imprimir(lista : listaPtr);
+procedure imprimirVector(productos : arrProductosRubro3; diml : integer);
+var i : integer;
 begin
-  while(lista <> nil) do begin
-    writeln('Rubro: ', lista^.datos.codigoRubro);
-    writeln('Codigo de prod. ', lista^.datos.codigoProducto);
-    lista := lista^.sig;
-  end;
+  for i := 1 to diml do
+    writeln(productos[i].precio:1:2);
 end;
 
 var
   productos : listaPtr;
+  productosRubro3 : arrProductosRubro3;
+  diml : integer;
 begin
   productos := nil;
   crearListaProductos(productos);
-  imprimir(productos);
-  imprimirProductosPorRubro(productos);
-  readln();
+  writeln('Lista final: ');
+  imprimirProductos(productos);
+  crearArregloRubro3(productosRubro3, diml, productos);
+  writeln('Vector del rubro 3: ');
+  imprimirVector(productosRubro3, diml);
+  ordenarPorPrecio(productosRubro3, diml);
+  writeln('VECTOR ORDENADO: ');
+  imprimirVector(productosRubro3, diml);
+  readln;
 end.
