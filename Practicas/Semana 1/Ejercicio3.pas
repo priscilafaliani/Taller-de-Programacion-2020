@@ -51,7 +51,7 @@ begin
   nodo := crearNodo(producto);
 
   actual := productos; anterior := productos;
-  // Avanza en la lista mientras no haya llegado al final, encontrado el rubro o encontrado la posición en el rubro.
+  // Avanza en la lista mientras no haya llegado al final, mientras no haya encontrado el rubro o mientras no haya encontrado la posición en el rubro.
   while((actual <> nil) and (((actual^.datos.codigoRubro <> producto.codigoRubro) and (anterior^.datos.codigoRubro <> producto.codigoRubro)) or
   ((actual^.datos.codigoRubro = producto.codigoRubro) and (producto.codigoProducto > actual^.datos.codigoProducto)))) do begin
     anterior := actual;
