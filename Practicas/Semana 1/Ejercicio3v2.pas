@@ -2,6 +2,7 @@ program ejercicio3;
 const
   cantRubros = 6;
   cantRubroTres = 30;
+  productosDeRubro = 3;
 type
   // Subrango de cada tipo de rubro
   rRubros = 1..cantRubros;
@@ -111,55 +112,55 @@ begin
   end;
 end;
 
-// Genera un vector de productos del rubro 3
-procedure generarVectorRubroTres(var prodsRubro3 : arrRubroTres; var cantProd : integer; listaProductos : arrListaProductos);
+// Genera un vector de productos del rubro productosDeRubro
+procedure generarVectorDeProductos(var ProdsRubro : arrRubroTres; var cantProd : integer; listaProductos : arrListaProductos);
 begin
   cantProd := 0;
-  while(listaProductos[3] <> nil) do begin
+  while(listaProductos[productosDeRubro] <> nil) do begin
     cantProd := cantProd + 1;
-    prodsRubro3[cantProd] := listaProductos[3]^.data;
-    listaProductos[3] := listaProductos[3]^.sig;
+    ProdsRubro[cantProd] := listaProductos[productosDeRubro]^.data;
+    listaProductos[productosDeRubro] := listaProductos[productosDeRubro]^.sig;
   end;
 end;
 
 // Ordenamiento por insercion
-procedure ordenamientoPorInsercion(var prodsRubro3 : arrRubroTres; cantProd : integer);
+procedure ordenamientoPorInsercion(var ProdsRubro : arrRubroTres; cantProd : integer);
 var
   i, j : integer;
   actual : regProducto;
 begin
   for i := 2 to cantProd do begin
-    actual := prodsRubro3[i];
+    actual := ProdsRubro[i];
     j := i - 1;
-    while((j > 0) and (actual.precio < prodsRubro3[j].precio)) do begin
-      prodsRubro3[j + 1] := prodsRubro3[j];
+    while((j > 0) and (actual.precio < ProdsRubro[j].precio)) do begin
+      ProdsRubro[j + 1] := ProdsRubro[j];
       j := j - 1;
     end;
-    prodsRubro3[j + 1] := actual;
+    ProdsRubro[j + 1] := actual;
   end;
 end;
 
 // Imprime los precios del vector de rubro 3
-procedure imprimirVector(prodsRubro3 : arrRubroTres; cantProd : integer);
+procedure imprimirVector(ProdsRubro : arrRubroTres; cantProd : integer);
 var
   i : integer;
 begin
   for i := 1 to cantProd do
-    writeln('Producto ', i, ') ', prodsRubro3[i].precio:1:2);
+    writeln('Producto ', i, ') ', ProdsRubro[i].precio:1:2);
 end;
 
 var
   listaProductos : arrListaProductos;
-  prodsRubro3 : arrRubroTres;
+  ProdsRubro : arrRubroTres;
   cantProd : integer;
 begin
   cargarProductos(listaProductos);
   mostrarCodigosProductos(listaProductos);
   writeln('Generando vector del rubro 3...');
-  generarVectorRubroTres(prodsRubro3, cantProd, listaProductos);
-  imprimirVector(prodsRubro3, cantProd);
+  generarVectorDeProductos(ProdsRubro, cantProd, listaProductos);
+  imprimirVector(ProdsRubro, cantProd);
   writeln('Precios ordenados: ');
-  ordenamientoPorInsercion(prodsRubro3, cantProd);
-  imprimirVector(prodsRubro3, cantProd);
+  ordenamientoPorInsercion(ProdsRubro, cantProd);
+  imprimirVector(ProdsRubro, cantProd);
   readln;
 end.
