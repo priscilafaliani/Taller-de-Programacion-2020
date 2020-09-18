@@ -14,22 +14,35 @@ begin
   binarioIterativo := resultado;
 end;
 
-function binarioRecursivo(num : integer; posDec, res : longint): longint;
+procedure binarioRecursivo(num : integer; posDec : longint; var res : longint);
 begin
-  if(num = 0) then binarioRecursivo := 0
-  else begin
+  if(num <> 0) then begin
     if((num mod 2) = 1) then
       res := res + posDec;
-    res := res + binarioRecursivo((num div 2), (posDec * 10), res);
+    binarioRecursivo((num div 2), (posDec * 10), res);
   end;
 end;
 
-function binarioRecursivo(num : integer): longint;
+function binarioRecursivoFuncion(num : integer; posDec, res : longint): longint;
 begin
-  binarioRecursivo := binarioRecursivo(num, 1, 0);
+  if(num <> 0) then begin
+    if((num mod 2) = 1) then
+      res := res + posDec;
+    res := binarioRecursivoFuncion((num div 2), (posDec * 10), res);
+  end;
+  binarioRecursivoFuncion := res;
 end;
 
+function binarioRecursivoFuncion(num : integer): longint;
 begin
-  writeln('Convertido a binario: ', binarioRecursivo(15));
+  binarioRecursivoFuncion := binarioRecursivoFuncion(num, 1, 0);
+end;
+
+var
+  binario : longint;
+begin
+  binario := 0;
+  binarioRecursivo(15, 1, binario);
+  writeln('Convertido a binario: ', binario,'. CON FUNCION:', binarioRecursivoFuncion(2));
   readln;
 end.
