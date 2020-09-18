@@ -33,16 +33,21 @@ begin
   binarioRecursivoFuncion := res;
 end;
 
-function binarioRecursivoFuncion(num : integer): longint;
+function binarioRecursivo2(num : integer): longint;
 begin
-  binarioRecursivoFuncion := binarioRecursivoFuncion(num, 1, 0);
+  if(num <= 1) then
+    binarioRecursivo2 := num
+  else
+    binarioRecursivo2 := binarioRecursivo2(num div 2) * 10 + num mod 2;
 end;
 
 var
   binario : longint;
 begin
-  binario := 0;
-  binarioRecursivo(15, 1, binario);
-  writeln('Convertido a binario: ', binario,'. CON FUNCION:', binarioRecursivoFuncion(2));
+  readln(binario);
+  while(binario <> -1) do begin
+    writeln('A BINARIO: ', binarioRecursivo2(binario));
+    readln(binario);
+  end;
   readln;
 end.
