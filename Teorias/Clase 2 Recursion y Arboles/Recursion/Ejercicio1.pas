@@ -56,7 +56,7 @@ end;
 
 procedure imprimirRecursivoInverso(numeros : listaPtr);
 begin
-  if(numeros <> nil) then
+  if(numeros^.sig <> nil) then
     imprimirRecursivoInverso(numeros^.sig);
   writeln(numeros^.num);
 end;
