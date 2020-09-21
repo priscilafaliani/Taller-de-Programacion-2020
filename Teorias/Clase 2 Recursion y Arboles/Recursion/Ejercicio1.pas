@@ -34,16 +34,11 @@ end;
 
 procedure cargarOchoNumeros(var numeros : listaPtr);
 var
-  cantNums, num : integer;
+  i : integer;
 begin
   randomize;
-  cantNums := 0;
-  while(cantNums < 8) do begin
-    writeln('NUMERO: ');
-    num := random(100) + 1;
-    insertarAdelante(numeros, num);
-    cantNums := cantNums + 1;
-  end;
+  for i := 1 to 8 do
+    insertarAdelante(numeros, random(500));
 end;
 
 procedure imprimirRecursivo(numeros : listaPtr);
