@@ -8,6 +8,11 @@ type
     right : arbolPtr;
   end;
 
+function crearNodo(params): integer;
+begin
+
+end;
+
 procedure insertar(arbol : arbolPtr);
 begin
   if(arbol = nil) then
@@ -15,4 +20,44 @@ begin
   else if dato < arbol^.dato then
     insertar(arbol^.left)
   else insertar(arbol^.right);
+end;
+
+procedure minimo(params);
+begin
+
+end;
+
+function minimo(params): integer;
+begin
+
+end;
+
+procedure maximo(params);
+begin
+
+end;
+
+function maximo(params): integer;
+begin
+
+end;
+
+function buscar(params): integer;
+begin
+
+end;
+
+function elementos(params): integer;
+begin
+
+end;
+
+procedure enOrden(params);
+begin
+
+end;
+
+procedure postOrden(params);
+begin
+
 end;

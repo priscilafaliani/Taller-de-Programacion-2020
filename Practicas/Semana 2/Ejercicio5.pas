@@ -94,6 +94,20 @@ begin
   end;
 end;
 
+procedure recorrido(a:arbolPtr);
+
+begin
+
+  if (a <> nil) then begin
+
+    recorrido(a^.izq);
+
+    recorrido(a^.der);
+
+    writeln(a^.data);
+  end;
+end;
+
 var
   numeros : arbolPtr;
 begin
@@ -107,5 +121,7 @@ begin
   imprimirCreciente(numeros);
   writeln('Arbol en forma decreciente: ');
   imprimirDecreciente(numeros);
+  writeln('IMPRIMIR: ');
+  recorrido(numeros);
   readln;
 end.

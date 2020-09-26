@@ -41,12 +41,33 @@ begin
     binarioRecursivo2 := binarioRecursivo2(num div 2) * 10 + num mod 2;
 end;
 
+function binarioRecursivo4(num : integer): integer;
+begin
+  if(num < 2 ) then
+    binarioRecursivo4 := num
+  else
+    binarioRecursivo4 := binarioRecursivo4(num div 2);
+end;
+
+procedure binarioRecursivo3(num : integer);
+begin
+  if(num < 2 ) then
+    write(num)
+  else begin
+    binarioRecursivo3(num div 2);
+    write(num mod 2);
+  end;
+end;
+
 var
   binario : longint;
 begin
   readln(binario);
   while(binario <> -1) do begin
     writeln('A BINARIO: ', binarioRecursivo2(binario));
+    writeln('Binario recursivo funcion 4: ', binarioRecursivo4(binario));
+    writeln('Binario procedimiento: ');
+    binarioRecursivo3(binario);
     readln(binario);
   end;
   readln;

@@ -27,12 +27,11 @@ begin
 end;
 
 procedure crearLista(var numeros : listaPtr);
-var aux : integer;
+var aux, i : integer;
 begin
-  readln(aux);
-  while(aux <> condSalida) do begin
+  for i := 1 to 10 do begin
+    aux := random(500);
     agregarALista(numeros, aux);
-    readln(aux);
   end;
 end;
 
@@ -58,21 +57,6 @@ begin
   minimoLoop := min;
 end;
 
-function minimo(numeros : listaPtr; min : integer): integer;
-begin
-  if(numeros = nil) then minimo := min
-  else begin
-      if(min > numeros^.num) then
-        min := numeros^.num;
-      minimo := minimo(numeros^.sig, min);
-  end;
-end;
-
-function minimo(numeros : listaPtr): integer;
-begin
-  minimo := minimo(numeros, 32767);
-end;
-
 function existeN(numeros : listaPtr; num : integer): boolean;
 begin
   if(numeros = nil) then
@@ -82,6 +66,20 @@ begin
       existeN := true
     else
       existeN := existeN(numeros^.sig, num);
+  end;
+end;
+
+function minimo(numeros : listaPtr): integer;
+var min : integer;
+begin
+  if(numeros = nil) then
+    minimo := 32767
+  else begin
+    min := minimo(numeros^.sig);
+    if(numeros^.num < min) then
+      minimo := numeros^.num
+    else
+      minimo := min;
   end;
 end;
 
