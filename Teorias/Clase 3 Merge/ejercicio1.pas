@@ -1,10 +1,13 @@
 program merge;
+const
+  cantidadEstantes = 5;
 type
-  lista = ^nodo;
-  nodo = record
+  listaPtr = ^regNodo;
+  regNodo = record
     dato : string;
-    sig : lista;
+    sig : listaPtr;
   end;
+  arrEstantes = array[1..cantidadEstantes] of listaPtr;
 
 
 procedure minimo(var e1, e2 : lista; var min : string);

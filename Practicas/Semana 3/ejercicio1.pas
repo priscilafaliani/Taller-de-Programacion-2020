@@ -21,10 +21,10 @@ type
 procedure leerPelicula(var pelicula : regPelicula);
 begin
   with pelicula do begin
-    readln(codPelicula);
+    codPelicula := random(20);
     if(codPelicula <> -1) then begin
-      readln(codGenero);
-      readln(puntajePromedio);
+      codGenero := random(cantGeneros) + 1;
+      puntajePromedio := random(10) + 1;
     end;
   end;
 end;
@@ -69,9 +69,17 @@ var
   peli : regPelicula;
 begin
   leerPelicula(peli);
-  while(peli.codPelicula <> -1) do begin
+  while(peli.codPelicula <> 0) do begin
     insertarPorCodigoPelicula(arrPelis[peli.codGenero], peli);
     leerPelicula(peli);
+  end;
+end;
+
+procedure imprimirLista(lista : peliculasPtr);
+begin
+  while(lista <> nil) do begin
+    writeln(lista^.pelicula.codPelicula);
+    lista := lista^.sig;
   end;
 end;
 
@@ -88,14 +96,28 @@ begin
   end;
 end;
 
-procedure mergePeliculas(arrPelis : arrPeliculas; nuevaLista : peliculasPtr);
+procedure buscarMinimo(var arrPelis : arrPeliculas; var minimo : regPelicula);
+var i, indice : integer;
+begin
+  minimo.codPelicula := 32767;
+  indice := -1;
+  for i := 1 to cantGeneros do
+    if((arrPelis[i] <> nil) and (arrPelis[i]^.pelicula.codPelicula < minimo.codPelicula)) then begin
+      minimo := arrPelis[i]^.pelicula;
+      indice := i;
+    end;
+  if(indice <> -1) then
+    arrPelis[indice] := arrPelis[indice]^.sig;
+end;
+
+procedure mergePeliculas(arrPelis : arrPeliculas; var nuevaLista : peliculasPtr);
 var
   minimo : regPelicula;
 begin
-  minimo := buscarMinimo(arrPelis);
-  while(minimo <> nil) do begin
+  buscarMinimo(arrPelis, minimo);
+  while(minimo.codPelicula <> 32767) do begin
     insertarPorCodigoPelicula(nuevaLista, minimo);
-    minimo := buscarMinimo(arrPelis);
+    buscarMinimo(arrPelis, minimo);
   end;
 end;
 
@@ -103,10 +125,15 @@ var
   arrPelis : arrPeliculas;
   listaPeliculasPorCodigo : peliculasPtr;
 begin
+  randomize();
   prepararListas(arrPelis);
   cargarPeliculas(arrPelis);
+  writeln('LISTAS: ');
+  imprimirListas(arrPelis);
 
   listaPeliculasPorCodigo := nil;
   mergePeliculas(arrPelis, listaPeliculasPorCodigo);
+  writeln('LISTA UNICA: ');
+  imprimirLista(listaPeliculasPorCodigo);
   readln;
 end.

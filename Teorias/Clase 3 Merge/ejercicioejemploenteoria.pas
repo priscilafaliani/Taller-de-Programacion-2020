@@ -60,7 +60,7 @@ var
   impuesto : regImpuesto;
 begin
   for i := 1 to cantListasImpuestos do begin
-    for j := 1 to 4 do begin
+    for j := 1 to 2 do begin
       ingresarImpuesto(impuesto);
       agregarAlfabeticamente(impuestos[i], impuesto);
     end;
