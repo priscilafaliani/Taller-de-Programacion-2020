@@ -62,16 +62,17 @@ public class Ejercicio4 {
         System.out.print("Ingrese un numero a buscar en la matriz: ");
         int n = Lector.leerInt();
 
-        int i = 0, j = 0;
-        while((i < filas) && (numeros[i][j] != n)){
+        int i = 0;
+        int j = 0;
+        while( (i < filas) && (numeros[i][j] != n)){
             j++;
-            if(j > columnas){
+            if(j >= columnas){
                 j = 0;
                 i++;
             }
         }
 
-        if((i > filas) || (j > columnas)) {
+        if(i >= filas) {
             System.out.println("No se encontró el elemento");
         } else {
             System.out.println("Numero encontrado en (" + i + ", " + j + ")");
