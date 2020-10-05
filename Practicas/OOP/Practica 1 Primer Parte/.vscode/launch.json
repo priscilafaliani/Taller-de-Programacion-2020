@@ -1,0 +1,63 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Ejercicio1",
+            "request": "launch",
+            "mainClass": "Ejercicio1",
+            "projectName": "Practica 1 Primer Parte_5e199313"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Ejercicio1<Práctica 1 Primer Parte_deafd3de>",
+            "request": "launch",
+            "mainClass": "Ejercicio1",
+            "projectName": "Práctica 1 Primer Parte_deafd3de"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Ejercicio2<Práctica 1 Primer Parte_deafd3de>",
+            "request": "launch",
+            "mainClass": "Ejercicio2",
+            "projectName": "Práctica 1 Primer Parte_deafd3de"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Ejercicio3<Práctica 1 Primer Parte_deafd3de>",
+            "request": "launch",
+            "mainClass": "Ejercicio3",
+            "projectName": "Práctica 1 Primer Parte_deafd3de"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Ejercicio4<Práctica 1 Primer Parte_deafd3de>",
+            "request": "launch",
+            "mainClass": "Ejercicio4",
+            "projectName": "Práctica 1 Primer Parte_deafd3de"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Ejercicio5<Práctica 1 Primer Parte_deafd3de>",
+            "request": "launch",
+            "mainClass": "Ejercicio5",
+            "projectName": "Práctica 1 Primer Parte_deafd3de"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Ejercicio6<Práctica 1 Primer Parte_deafd3de>",
+            "request": "launch",
+            "mainClass": "Ejercicio6",
+            "projectName": "Práctica 1 Primer Parte_deafd3de"
+        }
+    ]
+}

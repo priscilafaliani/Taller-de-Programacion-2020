@@ -1,7 +1,7 @@
 /*
 Demo Envio de mensaje a un objeto string
  */
-package src.tema2;
+package tema2;
 
 /**
  *

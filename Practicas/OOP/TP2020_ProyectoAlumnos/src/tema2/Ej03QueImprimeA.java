@@ -1,5 +1,5 @@
 
-package src.tema2;
+package tema2;
 
 /**
  *
