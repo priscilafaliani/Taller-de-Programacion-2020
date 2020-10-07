@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - prueba",
+            "request": "launch",
+            "mainClass": "prueba",
+            "projectName": "Practica 1 Primer Parte_9235135e"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - Ejercicio1",
             "request": "launch",
             "mainClass": "Ejercicio1",
