@@ -26,7 +26,7 @@ public class FlotaDeMicros {
     }
 
     // retorna el indice de un micro con patente en parametros o -1 si no existe
-    public int buscarMicro(String patente){
+    public int buscarPosMicro(String patente){
         int i = 0;
         while(i < microsEnFlota && !micros[i].getPatente().equals(patente)){
             i++;
@@ -34,13 +34,22 @@ public class FlotaDeMicros {
         return i >= microsEnFlota ? -1 : i;
     }
 
+    // retorna un micro buscado (segun patente o destino) o null en caso de no existir
+    public Micro buscarMicro(String patenteODestino){
+        int i = 0;
+        while(i < microsEnFlota && !micros[i].getPatente().equals(patente)){
+            i++;
+        }
+        return i >= microsEnFlota ? null : micros[i];
+    }
+
     // buscar y elimina un micro si existe
     public boolean eliminarDeFlota(String patente){
-        int pos = buscarMicro(patente);
+        int pos = buscarPosMicro(patente);
         if(pos != -1){
             microsEnFlota--;
             for(int i = pos; i < microsEnFlota; i++){
-                micros[i] = micros[i + 1]
+                micros[i] = micros[i + 1];
             }
             return true;
         } return false;
