@@ -1,0 +1,6 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Users\\pri-e\\Desktop\\CADP\\Taller-de-Programacion-2020\\Practicas\\OOP\\PaqueteLectura.jar"
+    ]
+}

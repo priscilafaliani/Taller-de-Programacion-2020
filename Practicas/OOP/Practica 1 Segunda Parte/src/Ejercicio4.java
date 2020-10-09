@@ -5,6 +5,7 @@ public class Ejercicio4 {
         
         final int dias = 5;
         final int turnos = 8;
+        final int cupos = dias * turnos;
         Persona[][] casting = new Persona[dias][turnos];
         
         int cuposDados = 0;
@@ -12,14 +13,13 @@ public class Ejercicio4 {
 
         //Persona persona = new Persona(GeneradorAleatorio.generarString(3), GeneradorAleatorio.generarInt(1000)+1000, GeneradorAleatorio.generarInt(90) + 18);
         Persona persona = new Persona(Lector.leerString(), Lector.leerInt(), Lector.leerInt());
-        while( (diasDados < dias) && !(persona.getNombre().equals("ZZZ")) ) {            
-            if(turnosDados < turnos) {
-                casting[diasDados][turnosDados++] = persona;
-                cuposDados++;
-            } else {
+        while( (cuposDados < cupos) && !(persona.getNombre().equals("ZZZ")) ) { 
+            if(turnosDados == turnos) {
                 turnosDados = 0;
                 diasDados++;
             }
+            casting[diasDados][turnosDados++] = persona;
+            cuposDados++;                           
             //persona = new Persona(GeneradorAleatorio.generarString(3), GeneradorAleatorio.generarInt(1000)+1000, GeneradorAleatorio.generarInt(90) + 18);
             persona = new Persona(Lector.leerString(), Lector.leerInt(), Lector.leerInt());
         }        
