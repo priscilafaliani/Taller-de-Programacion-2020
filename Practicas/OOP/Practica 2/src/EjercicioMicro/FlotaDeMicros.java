@@ -37,7 +37,7 @@ public class FlotaDeMicros {
     // retorna un micro buscado (segun patente o destino) o null en caso de no existir
     public Micro buscarMicro(String patenteODestino){
         int i = 0;
-        while(i < microsEnFlota && !micros[i].getPatente().equals(patente)){
+        while(i < microsEnFlota && (!micros[i].getPatente().equals(patenteODestino) || !micros[i].getDestino().equals(patenteODestino))){
             i++;
         }
         return i >= microsEnFlota ? null : micros[i];
