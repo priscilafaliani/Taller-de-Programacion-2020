@@ -1,3 +1,5 @@
+package EjercicioBalanza;
+
 public class BalanzaComercial {
     private double monto;
     private int items;

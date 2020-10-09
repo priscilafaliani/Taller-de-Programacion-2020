@@ -1,12 +1,14 @@
+package EjercicioBalanza;
+
 public class Producto {
-    private double peso;
-    private double precio;
-    private String descripcion;
+    private double peso = 0;
+    private double precio = 0;
+    private String descripcion = "";
 
     public Producto(double peso, double precio, String descripcion){
         this.peso = peso;
         this.precio = precio;
-        this.descripcion = descripcion;
+        this.descripcion = descripcion + " $" + precio*peso;
     }
 
     public Producto(){
@@ -34,6 +36,6 @@ public class Producto {
     }
 
     public void setDescripcion(String descripcion){
-        this.descripcion = descripcion;
+        this.descripcion = descripcion + " $" + precio*peso;
     }
 }
