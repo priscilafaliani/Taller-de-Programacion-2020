@@ -4,7 +4,9 @@ public class Auto {
     private int patente;
     private String dueño;
 
-    public Auto() {
+    public Auto(int patente, String dueño) {
+        this.patente = patente;
+        this.dueño = dueño;
     }
 
     public int getPatente() {
