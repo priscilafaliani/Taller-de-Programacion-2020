@@ -12,6 +12,13 @@ public class Triangulo {
         this.lado3 = lado3;
     }
 
+    public Triangulo(double lado1, double lado2, double lado3, String colorRelleno, String colorLinea){
+        this.lado1 = lado1;
+        this.lado2 = lado2;
+        this.lado3 = lado3;
+        this.colorRelleno = colorRelleno;
+        this.colorLinea = colorLinea;
+    }
     public Triangulo(){
         
     }

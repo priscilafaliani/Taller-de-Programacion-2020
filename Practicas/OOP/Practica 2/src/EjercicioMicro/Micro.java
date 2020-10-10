@@ -87,4 +87,8 @@ public class Micro {
         // puede ser que retorne 0 pero que el primer asiento esté ocupado igualmente
         return asientos[i] == false ? i : -1;
     }
+
+    public String toString() {
+        return "El micro con patente " + patente + " va hacia " + destino + " con salida a las " + hora;
+    }
 }

@@ -9,6 +9,16 @@ public class FlotaDeMicros {
         microsEnFlota = 0;
     }
 
+    public void toStringMicros(){
+        for(int i = 0; i < microsEnFlota; i++){
+            System.out.println(micros[i].toString());
+        }
+    }
+
+    public int getMicrosEnFlota() {
+        return microsEnFlota;
+    }
+
     /*________________general methods_________________*/
     public boolean estaCompleta(){
         return microsEnFlota == MAX;
@@ -34,10 +44,19 @@ public class FlotaDeMicros {
         return i >= microsEnFlota ? -1 : i;
     }
 
-    // retorna un micro buscado (segun patente o destino) o null en caso de no existir
-    public Micro buscarMicro(String patenteODestino){
+    // retorna un micro buscado (segun patente) o null en caso de no existir
+    public Micro buscarPatente(String patente){
         int i = 0;
-        while(i < microsEnFlota && (!micros[i].getPatente().equals(patenteODestino) || !micros[i].getDestino().equals(patenteODestino))){
+        while(i < microsEnFlota && !(micros[i].getPatente().equals(patente))){
+            i++;
+        }
+        return i >= microsEnFlota ? null : micros[i];
+    }
+
+    // retorna un micro buscado (segun destino) o null en caso de no existir
+    public Micro buscarDestino(String destino){
+        int i = 0;
+        while(i < microsEnFlota && !(micros[i].getDestino().equalsIgnoreCase(destino))){
             i++;
         }
         return i >= microsEnFlota ? null : micros[i];
