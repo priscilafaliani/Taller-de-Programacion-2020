@@ -72,9 +72,10 @@ public class Triangulo {
     }
 
     // general methods
+    // HACE FALTA CHEQUEAR SI LOS LADOS INGRESADOS FORMAN UN TRIANGULO PARA QUE ESTA FORMULA FUNCIONE!!111
     public double calcularArea(){
         double s = (lado1 + lado2 + lado3) / 2;
-        return Math.sqrt(Math.abs(s * (s - lado1) * (s - lado2) + (s - lado3)));
+        return Math.sqrt(s * (s - lado1) * (s - lado2) * (s - lado3));
     }
 
     public double calcularPerimetro(){
