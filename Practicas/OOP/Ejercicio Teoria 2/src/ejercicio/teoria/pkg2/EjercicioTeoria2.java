@@ -5,17 +5,10 @@
  */
 package ejercicio.teoria.pkg2;
 
-/**
- *
- * @author Prisc
- */
 public class EjercicioTeoria2 {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+        
     }
     
 }
