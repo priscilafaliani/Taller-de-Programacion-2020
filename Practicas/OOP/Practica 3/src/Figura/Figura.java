@@ -1,11 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package src.tema5;
-
-
+package Figura;
 public abstract class Figura {
     private String colorRelleno;
     private String colorLinea;
@@ -16,12 +9,8 @@ public abstract class Figura {
     }
     
     public String toString(){
-        String aux = "Area: " + this.calcularArea() +
-                     " CR: "  + getColorRelleno() + 
-                      " CL: " + getColorLinea();             
-             return aux;
-       }
-
+        return "Area: " + this.calcularArea() + " Color relleno: "  + getColorRelleno() + " Color linea: " + getColorLinea();
+    }
     
     public String getColorRelleno(){
         return colorRelleno;       
