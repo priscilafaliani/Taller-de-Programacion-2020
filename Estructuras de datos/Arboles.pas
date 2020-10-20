@@ -8,12 +8,12 @@ type
     right : arbolPtr;
   end;
 
-function crearNodo(params): integer;
+function crearNodo(params): arbolPtr;
 begin
 
 end;
 
-procedure insertar(arbol : arbolPtr);
+procedure insertar(var arbol : arbolPtr);
 begin
   if(arbol = nil) then
     arbol := crearNodo()
@@ -27,19 +27,33 @@ begin
 
 end;
 
-function minimo(params): integer;
+function minimo(arbol : arbolPtr): integer;
+begin
+  if(arbol = nil)
+    minimo := 32767
+  else begin
+    if(arbol^.left <> nil) then
+      minimo(arbol^.left)
+    else
+      minimo := arbol^.dato;
+  end;
+end;
+
+procedure maximo(arbol : arbolPtr);
 begin
 
 end;
 
-procedure maximo(params);
+function maximo(arbol : arbolPtr): integer;
 begin
-
-end;
-
-function maximo(params): integer;
-begin
-
+  if(arbol = nil)
+    maximo := -32767
+  else begin
+    if(arbol^.right <> nil) then
+      maximo(arbol^.right)
+    else
+      maximo := arbol^.dato;
+  end;
 end;
 
 function buscar(params): integer;
@@ -52,17 +66,32 @@ begin
 
 end;
 
-procedure preOrden(params);
+{ no imprime en ningun orden }
+procedure preOrden(arbol : arbolPtr);
 begin
-  
+  if(arbol <> nil) then begin
+    writeln(arbol^.dato);
+    preOrden(arbol^.left);
+    preOrden(arbol^.right);
+  end;
 end;
 
-procedure enOrden(params);
+{ imprime de menor a mayor }
+procedure enOrden(arbol : arbolPtr);
 begin
-
+  if(arbol <> nil) then begin
+    enOrden(arbol^.left);
+    writeln(arbol^.dato);
+    enOrden(arbol^.right);
+  end;
 end;
 
-procedure postOrden(params);
+{ imprime de mayor a menor }
+procedure posOrden(params);
 begin
-
+  if(arbol <> nil) then begin
+    posOrden(arbol^.right);
+    writeln(arbol^.data);
+    posOrden(arbol^.left);
+  end;
 end;
