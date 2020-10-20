@@ -1,3 +1,5 @@
+package ejercicio.teoria.pkg2;
+
 public class Auto {
     private int patente;
     private String dueño;
@@ -23,9 +25,9 @@ public class Auto {
 
     @Override
     public String toString() {
-        return "Patente: "+patente+ " Dueño: "+dueño; //To change body of generated methods, choose Tools | Templates.
+        return "Patente: "+ patente + " Dueño: " + dueño + ". "; //To change body of generated methods, choose Tools | Templates.
     }
-
-
-
+    
+    
+    
 }

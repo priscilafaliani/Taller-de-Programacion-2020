@@ -1,6 +1,4 @@
-package src.tema5;
-
-
+package Figura;
 public class Cuadrado extends Figura{
     
     private double lado;
@@ -16,21 +14,19 @@ public class Cuadrado extends Figura{
     }
   
     public void setLado(double unLado){
-        lado=unLado;
+        lado = unLado;
     }
 
     public double calcularArea(){
-       return (getLado()* getLado());
+       return (getLado() * getLado());
     }
     
     public double calcularPerimetro(){
-       return (getLado()*4);
+       return (getLado() * 4);
     }
     
     public String toString(){
-       String aux = super.toString() + 
-                    " Lado: " + getLado();
-       return aux;
+       return "Lado: " + getLado() + super.toString();
     }
 
  
