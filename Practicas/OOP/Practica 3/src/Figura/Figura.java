@@ -4,8 +4,7 @@ public abstract class Figura {
     private String colorLinea;
    
     public Figura(String unCR, String unCL){
-        setColorRelleno(unCR);
-        setColorLinea(unCL);
+        
     }
     
     public String toString(){

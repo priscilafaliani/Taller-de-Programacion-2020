@@ -3,15 +3,13 @@ public class Triangulo extends Figura{
     private double lado1;
     private double lado2;
     private double lado3;
-
-    // cosntructor
+    
     public Triangulo(String colorRelleno, String colorLinea, double lado1, double lado2, double lado3){
         super(colorRelleno, colorLinea);
         setLado1(lado1);
         setLado2(lado2);
         setLado3(lado3);
     }
-
 
     // getters y setters
     public double getLado1() {
