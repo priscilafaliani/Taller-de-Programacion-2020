@@ -1,0 +1,59 @@
+programa ejercicio1b
+
+procesos
+
+  proceso juntarFlores(ES flores : numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      flores := flores + 1
+  fin
+  
+  proceso recorrerCalles(ES flores : numero)
+  comenzar
+    repetir 9
+      juntarFlores(flores)
+      mover
+    juntarFlores(flores)
+  fin
+  
+areas
+  areaRecolector1 : AreaP(1,1,1,10)
+  areaRecolector2 : AreaP(2,11,2,20)
+  areaFiscalizador : AreaP(2,1,2,1)
+
+robots
+  robot Recolector
+  variables
+    misFlores : numero
+  comenzar
+    misFlores := 0
+    recorrerCalles(misFlores)
+    EnviarMensaje(misFlores, fiscalizador)
+  fin  
+  robot Fiscalizador
+  variables
+    cantidad1, cantidad2 : numero
+  comenzar
+    RecibirMensaje(cantidad1, *)
+    RecibirMensaje(cantidad2, *)
+    si cantidad1 > cantidad2 
+      Informar(cantidad1 - cantidad2)
+    sino 
+      si cantidad2 > cantidad1
+        Informar(cantidad2 - cantidad1)  
+  fin    
+
+variables
+  recolector1 : Recolector
+  recolector2 : Recolector
+  fiscalizador : Fiscalizador
+comenzar
+  AsignarArea(recolector1, areaRecolector1)
+  AsignarArea(recolector2, areaRecolector2)
+  AsignarArea(fiscalizador, areaFiscalizador)
+  Iniciar(recolector1,1,1)
+  Iniciar(recolector2,2,11)
+  Iniciar(fiscalizador,2,1)
+fin
+

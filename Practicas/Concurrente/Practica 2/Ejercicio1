@@ -1,0 +1,47 @@
+programa ejercicio1
+
+procesos
+
+  proceso juntarFlores(ES flores : numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      flores := flores + 1
+  fin
+  
+  proceso recorrerCalles(ES flores : numero)
+  comenzar
+    repetir 9
+      juntarFlores(flores)
+      mover
+    juntarFlores(flores)
+  fin
+
+areas
+  areaRecolector1 : AreaP(1,1,1,10)
+  areaRecolector2 : AreaP(2,11,2,20)
+robots
+  robot Recolector
+  variables
+    misFlores, susFlores : numero
+  comenzar
+    misFlores := 0
+    recorrerCalles(misFlores)
+    si PosCa = 10
+      EnviarMensaje(misFlores, recolector2)
+      RecibirMensaje(susFlores, recolector2)
+    sino
+      EnviarMensaje(misFlores, recolector1)
+      RecibirMensaje(susFlores, recolector1)
+    si misFlores > susFlores
+      Informar(misFlores - susFlores)  
+  fin
+variables
+  recolector1 : Recolector
+  recolector2 : Recolector
+comenzar
+  AsignarArea(recolector1, areaRecolector1)
+  AsignarArea(recolector2, areaRecolector2)
+  Iniciar(recolector1,1,1)
+  Iniciar(recolector2,2,11)
+fin

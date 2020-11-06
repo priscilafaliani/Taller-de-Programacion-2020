@@ -1,0 +1,154 @@
+programa ejercicio4
+
+procesos
+  proceso enviarIDs
+  comenzar
+    EnviarMensaje(1, robot1)
+    EnviarMensaje(2, robot2)
+    EnviarMensaje(3, robot3)
+    EnviarMensaje(4, robot4)
+  fin
+  
+  { Envia un "aviso" al robot que le toque segun el random }
+  proceso llamarRecolector(ES idOut : numero)
+  variables
+    id : numero
+  comenzar
+    Random(id, 1, 4)
+    Informar(id)
+    si id = 1
+      EnviarMensaje(1, robot1)
+    sino
+      si id = 2
+        EnviarMensaje(1, robot2)
+      sino
+        si id = 3
+          EnviarMensaje(1, robot3)
+        sino
+          EnviarMensaje(1, robot4)
+    idOut := id
+  fin
+  
+  proceso finalizar
+  comenzar
+    EnviarMensaje(-1, robot1)
+    EnviarMensaje(-1, robot2)
+    EnviarMensaje(-1, robot3)
+    EnviarMensaje(-1, robot4)
+  fin
+  
+  proceso obtenerMinimo(E recolectado : numero; ES minimo : numero; E ID : numero; ES IDmin : numero)
+  comenzar
+    si recolectado < minimo
+      minimo := recolectado
+      IDmin := ID
+  fin
+  
+  proceso obtenerEsquina(ES avenidaOut : numero; ES calleOut : numero)
+  variables
+    avenida, calle : numero
+  comenzar
+    Random(avenida, 25, 75)
+    Random(calle, 25,75)
+    avenidaOut := avenida
+    calleOut := calle
+  fin
+  
+  proceso juntarFlores(ES flores : numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      flores := flores + 1
+  fin
+  
+  proceso juntarPapeles(ES papeles : numero)
+  comenzar
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+      papeles := papeles + 1
+  fin
+  
+  proceso limpiarEsquina(ES cantidad : numero)
+  comenzar
+    juntarFlores(cantidad)
+    juntarPapeles(cantidad)
+  fin
+  
+  proceso recolectarEsquina(ES cantidad : numero)
+  variables
+    avenida, calle : numero
+  comenzar
+    obtenerEsquina(avenida, calle)
+    Informar(avenida)
+    Informar(calle)
+    Pos(avenida, calle)
+    limpiarEsquina(cantidad)
+  fin
+areas
+  Cuadrante : AreaC(25,25,75,75)
+  PuestoFiscalizador : AreaP(1,1,1,1)
+  PuestoRobot1 : AreaP(25,1,25,1)
+  PuestoRobot2 : AreaP(30,1,30,1)
+  PuestoRobot3 : AreaP(35,1,35,1)
+  PuestoRobot4 : AreaP(40,1,40,1)
+robots
+  robot Fiscalizador
+  variables
+    ID, IDmin, minimo, recolectado : numero
+  comenzar
+    enviarIDs
+    minimo := -1
+    repetir 10
+      recolectado := 0
+      llamarRecolector(ID)
+      RecibirMensaje(recolectado, *)
+      obtenerMinimo(recolectado, minimo, ID, IDmin)
+    finalizar
+    Informar(IDmin)
+    Informar(minimo)
+  fin
+  
+  robot Recolector
+  variables
+    recolectado, ID, queHacer, av, ca : numero
+  comenzar
+    RecibirMensaje(ID, fiscalizador)
+    recolectado := 0   
+    av := PosAv
+    ca := PosCa
+    RecibirMensaje(queHacer, fiscalizador) 
+    mientras ~(queHacer = -1) 
+      si queHacer = 1
+        recolectarEsquina(recolectado)
+        Pos(av, ca)
+        EnviarMensaje(recolectado, fiscalizador)
+      RecibirMensaje(queHacer, fiscalizador)
+  fin
+  
+variables
+  fiscalizador : Fiscalizador
+  robot1 : Recolector
+  robot2 : Recolector
+  robot3 : Recolector
+  robot4 : Recolector
+comenzar
+  AsignarArea(robot1, Cuadrante)
+  AsignarArea(robot1, PuestoRobot1)
+  AsignarArea(robot2, Cuadrante)
+  AsignarArea(robot2, PuestoRobot2)  
+  AsignarArea(robot3, Cuadrante)
+  AsignarArea(robot3, PuestoRobot3)
+  AsignarArea(robot4, Cuadrante)
+  AsignarArea(robot4, PuestoRobot4)
+  AsignarArea(fiscalizador, PuestoFiscalizador)
+  Iniciar(fiscalizador,1,1)
+  Iniciar(robot1,25,1)
+  Iniciar(robot2,30,1)
+  Iniciar(robot3,35,1)
+  Iniciar(robot4,40,1)
+fin
+
+
+
+
+

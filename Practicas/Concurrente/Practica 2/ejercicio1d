@@ -1,0 +1,102 @@
+programa ejercicio1c
+
+procesos
+
+  proceso juntarFlores(ES flores : numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      flores := flores + 1
+  fin
+  
+  proceso recorrerCalles(ES flores : numero)
+  comenzar
+    repetir 9
+      juntarFlores(flores)
+      mover
+    juntarFlores(flores)
+  fin
+  
+areas
+  areaRecolector1 : AreaP(1,1,1,10)
+  areaRecolector2 : AreaP(2,11,2,20)
+  areaRecolector3 : AreaP(3,21,3,30)
+  areaRecolector4 : AreaP(4,31,4,40)
+  areaRecolector5 : AreaP(5,41,5,50)
+  areaRecolector6 : AreaP(6,51,6,60)
+  areaFiscalizador : AreaP(2,1,2,1)
+
+robots
+  robot Recolector
+  variables
+    misFlores, ID : numero
+  comenzar
+    misFlores := 0
+    recorrerCalles(misFlores)
+    RecibirMensaje(ID, fiscalizador)
+    EnviarMensaje(ID, fiscalizador)
+    EnviarMensaje(misFlores, fiscalizador)
+  fin  
+  robot Fiscalizador
+  variables
+    floresMax, cantidad, IDmax, ID : numero
+  comenzar
+    floresMax := -1
+    EnviarMensaje(1, recolector1)
+    EnviarMensaje(2, recolector2)
+    EnviarMensaje(3, recolector3)
+    EnviarMensaje(4, recolector4)
+    EnviarMensaje(5, recolector5)
+    EnviarMensaje(6, recolector6)
+    
+    repetir 6
+      RecibirMensaje(ID,*)
+      si ID = 1
+        RecibirMensaje(cantidad, recolector1)
+      sino 
+        si ID = 2
+          RecibirMensaje(cantidad, recolector2)
+        sino 
+          si ID = 3
+            RecibirMensaje(cantidad, recolector3)
+          sino 
+            si ID = 4
+              RecibirMensaje(cantidad, recolector4)
+            sino 
+              si ID = 5
+                RecibirMensaje(cantidad, recolector5)
+              sino
+                RecibirMensaje(cantidad, recolector6)
+      si cantidad > floresMax
+        IDmax := ID
+        floresMax := cantidad
+    Informar('ROBOT_GANADOR_ID', IDmax)
+    Informar('FLORES', floresMax)
+  fin    
+
+variables
+  recolector1 : Recolector
+  recolector2 : Recolector
+  recolector3 : Recolector
+  recolector4 : Recolector
+  recolector5 : Recolector
+  recolector6 : Recolector
+  fiscalizador : Fiscalizador
+comenzar
+  AsignarArea(recolector1, areaRecolector1)
+  AsignarArea(recolector2, areaRecolector2)
+  AsignarArea(recolector3, areaRecolector3)
+  AsignarArea(recolector4, areaRecolector4)
+  AsignarArea(recolector5, areaRecolector5)
+  AsignarArea(recolector6, areaRecolector6)
+  AsignarArea(fiscalizador, areaFiscalizador)
+  Iniciar(recolector1,1,1)
+  Iniciar(recolector2,2,11)
+  Iniciar(recolector3,3,21)
+  Iniciar(recolector4,4,31)
+  Iniciar(recolector5,5,41)
+  Iniciar(recolector6,6,51)
+  Iniciar(fiscalizador,2,1)
+fin
+
+

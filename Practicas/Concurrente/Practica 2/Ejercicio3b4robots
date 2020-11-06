@@ -1,0 +1,150 @@
+programa ejercicio3
+
+procesos
+  proceso juntarFlores(ES flores : numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      flores := flores + 1
+  fin
+  
+  proceso juntarPapeles(ES papeles : numero)
+  comenzar
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+      papeles := papeles + 1
+  fin
+  
+  proceso recorrerAvenidas(ES objetos : numero)
+  comenzar
+    repetir 9
+      si PosCa = 1
+        juntarPapeles(objetos)
+      sino
+        juntarFlores(objetos)
+      mover
+    si PosCa = 1
+      juntarPapeles(objetos)
+    sino
+      juntarFlores(objetos)
+  fin
+  
+areas
+  area1 : AreaP(1,1,40,1)
+  area2 : AreaP(1,5,40,5)
+
+robots
+  robot EquipoATipo1
+  variables
+    papeles, aviso : numero
+  comenzar
+    derecha
+    { Realiza la primer parte del trayecto }
+    papeles := 0
+    recorrerAvenidas(papeles)
+    { Avisa al compñero que termino }
+    { Se prepara para continuar luego }
+    EnviarMensaje(papeles, compañero1B)
+    Pos(PosAv + 11, PosCa)
+    
+    { Espera que se le avise que puede seguir el siguiente tramo }
+    RecibirMensaje(aviso, compañero1B)
+    
+    { Hace su ultima parte del recorrido }
+    papeles := 0
+    recorrerAvenidas(papeles)
+    EnviarMensaje(papeles, compañero1B)
+  fin
+  
+  robot EquipoATipo2
+  variables
+    misPapeles, susPapeles, total : numero
+  comenzar
+    derecha
+    { Espera el aviso del compañero }
+    RecibirMensaje(total, compañero1A)
+    { Junta lo correspondiente, avisa al compañero que }
+    {  puede retomar en la siguiente parte }
+    misPapeles := 0
+    recorrerAvenidas(misPapeles)
+    EnviarMensaje(1, compañero1A)
+    
+    { Se prepara para seguir luego }
+    Pos(PosAv + 11, PosCa)
+    
+    RecibirMensaje(susPapeles, compañero1A)
+    total := total + susPapeles    
+    { Recorre la avenida faltante, e informa el total }
+    recorrerAvenidas(misPapeles)    
+    Informar(total + misPapeles)
+  fin  
+  
+  robot EquipoBTipo1
+  variables
+    flores, aviso : numero
+  comenzar
+    derecha
+    { Realiza la primer parte del trayecto }
+    flores := 0
+    recorrerAvenidas(flores)
+    { Avisa al compñero que termino }
+    { Se prepara para continuar luego }
+    EnviarMensaje(flores, compañero2B)
+    Pos(PosAv + 11, PosCa)
+    
+    { Espera que se le avise que puede seguir el siguiente tramo }
+    RecibirMensaje(aviso, compañero2B)
+    
+    { Hace su ultima parte del recorrido }
+    flores := 0
+    recorrerAvenidas(flores)
+    EnviarMensaje(flores, compañero2B)
+  fin
+  
+  robot EquipoBTipo2
+  variables
+    misFlores, susFlores, total : numero
+  comenzar
+    derecha
+    { Espera el aviso del compañero }
+    RecibirMensaje(total, compañero2A)
+    { Junta lo correspondiente, avisa al compañero que }
+    {  puede retomar en la siguiente parte }
+    misFlores := 0
+    recorrerAvenidas(misFlores)
+    EnviarMensaje(1, compañero2A)
+    
+    { Se prepara para seguir luego }
+    Pos(PosAv + 11, PosCa)
+    
+    RecibirMensaje(susFlores, compañero2A)
+    total := total + susFlores    
+    { Recorre la avenida faltante, e informa el total }
+    recorrerAvenidas(misFlores)    
+    Informar(total + misFlores)
+  fin
+  
+variables
+  compañero1A : EquipoATipo1
+  compañero1B : EquipoATipo2
+  compañero2A : EquipoBTipo1
+  compañero2B : EquipoBTipo2
+comenzar
+  AsignarArea(compañero1A, area1)
+  AsignarArea(compañero1B, area1)
+  AsignarArea(compañero2A, area2)
+  AsignarArea(compañero2B, area2)
+  Iniciar(compañero1A,1,1)
+  Iniciar(compañero1B,11,1)
+  Iniciar(compañero2A,1,5)
+  Iniciar(compañero2B,11,5)
+fin
+      
+      
+
+
+
+
+
+
+
