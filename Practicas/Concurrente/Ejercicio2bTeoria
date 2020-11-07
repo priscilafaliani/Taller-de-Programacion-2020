@@ -1,0 +1,63 @@
+programa ejercicio2b
+procesos
+  proceso juntarFlores(ES flores : numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      flores := flores + 1
+  fin
+  proceso lado(E lado : numero; ES flores : numero)
+  comenzar
+    repetir lado
+      juntarFlores(flores)
+      mover
+  fin
+  proceso rectangulo(E alto : numero; E ancho : numero; ES flores : numero)
+  comenzar
+    repetir 2
+      lado(alto, flores)
+      derecha
+      lado(ancho, flores)
+      derecha
+  fin   
+areas
+  ciudad : AreaC(1, 1, 100, 100)
+robots
+  robot RobotRectangulo
+  variables
+    flores, alto, ancho : numero
+  comenzar
+    RecibirMensaje(alto, mensajero)
+    RecibirMensaje(ancho, mensajero)
+    flores := 0
+    rectangulo(alto, ancho, flores)
+    EnviarMensaje(flores, mensajero)
+  fin  
+  robot RobotMensajero
+  variables
+    maximo, num : numero
+  comenzar
+    EnviarMensaje(5, rectangulo1)
+    EnviarMensaje(3, rectangulo1)
+    EnviarMensaje(8, rectangulo2)
+    EnviarMensaje(2, rectangulo2)
+    maximo := 0  
+    repetir 2
+      RecibirMensaje(num, *)
+      si (num > maximo)
+        maximo := num
+    Informar(maximo)
+  fin
+variables
+  rectangulo1 : RobotRectangulo
+  rectangulo2 : RobotRectangulo
+  mensajero : RobotMensajero
+comenzar
+  AsignarArea(rectangulo1, ciudad)
+  AsignarArea(rectangulo2, ciudad)
+  AsignarArea(mensajero, ciudad)
+  Iniciar(rectangulo1, 2, 2)
+  Iniciar(rectangulo2, 6, 2)
+  Iniciar(mensajero, 1, 1)
+fin
+    

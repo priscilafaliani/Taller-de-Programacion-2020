@@ -1,0 +1,74 @@
+programa ejercicio2b
+procesos
+  proceso juntarFlores(ES flores : numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      flores := flores + 1
+  fin
+  proceso lado(E lado : numero; ES flores : numero)
+  comenzar
+    repetir lado
+      juntarFlores(flores)
+      mover
+  fin
+  proceso rectangulo(E alto : numero; E ancho : numero; ES flores : numero)
+  comenzar
+    repetir 2
+      lado(alto, flores)
+      derecha
+      lado(ancho, flores)
+      derecha
+  fin   
+areas
+  ciudad : AreaC(1, 1, 100, 100)
+robots
+  robot RobotRectangulo
+  variables
+    flores, alto, ancho, ID : numero
+  comenzar
+    RecibirMensaje(ID, mensajero)
+    RecibirMensaje(alto, mensajero)
+    RecibirMensaje(ancho, mensajero)
+    flores := 0
+    rectangulo(alto, ancho, flores)
+    EnviarMensaje(ID, mensajero)
+    EnviarMensaje(flores, mensajero)
+  fin  
+  robot RobotMensajero
+  variables
+    maximo, num, ID, IDmax : numero
+  comenzar
+    EnviarMensaje(1, rectangulo1) 
+    EnviarMensaje(5, rectangulo1)
+    EnviarMensaje(3, rectangulo1)    
+    EnviarMensaje(2, rectangulo2)
+    EnviarMensaje(8, rectangulo2)
+    EnviarMensaje(2, rectangulo2)
+    maximo := 0     
+    repetir 2
+      RecibirMensaje(ID, *)
+      si ID = 1
+        RecibirMensaje(num, rectangulo1)
+      sino 
+        si ID = 2
+          RecibirMensaje(num, rectangulo2)
+      si (num > maximo)
+        maximo := num
+        IDmax := ID        
+    Informar('ROBOT', IDmax)
+    Informar('FLORES', maximo)
+  fin
+variables
+  rectangulo1 : RobotRectangulo
+  rectangulo2 : RobotRectangulo
+  mensajero : RobotMensajero
+comenzar
+  AsignarArea(rectangulo1, ciudad)
+  AsignarArea(rectangulo2, ciudad)
+  AsignarArea(mensajero, ciudad)
+  Iniciar(rectangulo1, 2, 2)
+  Iniciar(rectangulo2, 6, 2)
+  Iniciar(mensajero, 1, 1)
+fin
+    
