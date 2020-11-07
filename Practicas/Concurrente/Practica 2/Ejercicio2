@@ -1,0 +1,107 @@
+programa ejercicio2
+
+procesos
+
+  proceso izquierda
+  comenzar
+    repetir 3
+      derecha
+  fin
+  
+  proceso juntarFlores(ES flores : numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      flores := flores + 1
+  fin
+  
+  proceso juntarPapeles(ES papeles : numero)
+  comenzar
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+      papeles := papeles + 1
+  fin
+  
+  proceso recolectarEsquina(ES flores : numero; ES papeles : numero)
+  comenzar
+    juntarFlores(flores)
+    juntarPapeles(papeles)
+  fin
+  
+  proceso evaluarEsquina(E flores : numero; E papeles : numero; ES masFqueP : numero)
+  comenzar
+    si flores > papeles
+      masFqueP := masFqueP + 1
+  fin
+  
+  proceso hacerEscalon(E alto : numero; ES masFqueP : numero)
+  variables
+    flores, papeles : numero
+  comenzar    
+    repetir alto
+      flores := 0
+      papeles := 0
+      recolectarEsquina(flores, papeles)
+      evaluarEsquina(flores, papeles, masFqueP)
+      mover
+    derecha
+    
+    { hace el ancho, que es 1 }
+    flores := 0
+    papeles := 0
+    recolectarEsquina(flores, papeles)
+    evaluarEsquina(flores,papeles, masFqueP)
+    mover
+    { la "ultima esquina" no la cuenta, porque seria la primera del siguiente escalon }
+    { queda mirando hacia arriba de nuevo }
+    izquierda
+  fin
+  
+  proceso hacerEscalera(ES esquinasConMasFloresQuePapeles : numero)
+  variables
+    alto : numero
+  comenzar
+    repetir 4
+      Random(alto, 1, 5)
+      hacerEscalon(alto, esquinasConMasFloresQuePapeles)
+  fin
+  
+areas
+  ciudad : AreaC(1,1,100,100)
+robots
+  robot Escalera
+  variables
+    esquinasConMasFloresQuePapeles : numero
+  comenzar
+    esquinasConMasFloresQuePapeles := 0
+    hacerEscalera(esquinasConMasFloresQuePapeles)
+    EnviarMensaje(esquinasConMasFloresQuePapeles, jefe)
+  fin
+  
+  robot Jefe
+  variables
+    cantidad, suma : numero
+  comenzar
+    suma := 0
+    repetir 3
+      RecibirMensaje(cantidad, *)
+      suma := suma + cantidad
+    Informar(suma)
+  fin
+  
+variables
+  robot1 : Escalera
+  robot2 : Escalera
+  robot3 : Escalera
+  jefe : Jefe
+comenzar
+  AsignarArea(robot1, ciudad)
+  AsignarArea(robot2, ciudad)
+  AsignarArea(robot3, ciudad)
+  AsignarArea(jefe, ciudad)
+  Iniciar(robot1,2,1)
+  Iniciar(robot2,7,1)
+  Iniciar(robot3,12,1)
+  Iniciar(jefe,1,1)
+fin
+

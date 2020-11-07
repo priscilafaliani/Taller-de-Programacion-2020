@@ -1,0 +1,94 @@
+programa ejercicio3
+
+procesos
+  proceso juntarFlores(ES flores : numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      flores := flores + 1
+  fin
+  
+  proceso juntarPapeles(ES papeles : numero)
+  comenzar
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+      papeles := papeles + 1
+  fin
+  
+  proceso recorrerAvenidas(ES objetos : numero)
+  comenzar
+    derecha
+    repetir 9
+      si PosCa = 1
+        juntarPapeles(objetos)
+      sino
+        juntarFlores(objetos)
+      mover
+  fin
+  
+areas
+  area1 : AreaP(1,1,40,1)
+  area2 : AreaP(1,5,40,5)
+
+robots
+  robot EquipoATipo1
+  variables
+    papeles : numero
+  comenzar
+    papeles := 0
+    recorrerAvenidas(papeles)
+    EnviarMensaje(papeles, compañero1B)
+  fin
+  
+  robot EquipoATipo2
+  variables
+    misPapeles, susPapeles : numero
+  comenzar
+    misPapeles := 0
+    RecibirMensaje(susPapeles, compañero1A)
+    recorrerAvenidas(misPapeles)
+    Informar(misPapeles + susPapeles)
+  fin
+  
+  robot EquipoBTipo1
+  variables
+    flores : numero
+  comenzar
+    flores := 0
+    recorrerAvenidas(flores)
+    EnviarMensaje(flores, compañero2B)
+  fin
+  
+  robot EquipoBTipo2
+  variables
+    misFlores, susFlores : numero
+  comenzar
+    misFlores := 0
+    RecibirMensaje(susFlores, compañero2A)
+    recorrerAvenidas(misFlores)
+    Informar(misFlores + susFlores)
+  fin
+  
+variables
+  compañero1A : EquipoAtipo1
+  compañero1B : EquipoAtipo2
+  compañero2A : EquipoBtipo1
+  compañero2B : EquipoBtipo2
+comenzar
+  AsignarArea(compañero1A, area1)
+  AsignarArea(compañero1B, area1)
+  AsignarArea(compañero2A, area2)
+  AsignarArea(compañero2B, area2)
+  Iniciar(compañero1A,1,1)
+  Iniciar(compañero1B,11,1)
+  Iniciar(compañero2A,1,5)
+  Iniciar(compañero2B,11,5)
+fin
+      
+      
+
+
+
+
+
+
