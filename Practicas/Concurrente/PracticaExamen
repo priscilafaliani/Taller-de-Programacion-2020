@@ -1,0 +1,118 @@
+programa practica
+
+procesos
+  proceso juntarFlores
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+  fin
+  
+  proceso juntarPapeles
+  comenzar
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+  fin
+
+areas
+  AreaFiscal : AreaP(40,40,40,40)
+  EquipoA : AreaP(5,5,15,15)
+  EquipoB : AreaP(25,5,35,15)
+  Comienzo : AreaPC(1,1,4,1)
+robots
+  robot Robot1EquipoA
+  comenzar
+    BloquearEsquina(5,5)
+    Pos(5,5)
+    mover
+    LiberarEsquina(5,5)
+    repetir 9
+      juntarFlores
+      mover
+    EnviarMensaje(1, fiscal)
+  fin
+  
+  robot Robot2EquipoA
+  variables
+    flores : numero
+  comenzar
+    derecha
+    BloquearEsquina(5,5)
+    Pos(5,5)  
+    mover  
+    LiberarEsquina(5,5)
+    repetir 9
+      juntarFlores
+      mover    
+    EnviarMensaje(1, fiscal)
+  fin
+  
+  robot Robot1EquipoB
+  variables
+    papeles : numero
+  comenzar
+    BloquearEsquina(25,5)
+    Pos(25,5)
+    mover
+    LiberarEsquina(25,5)
+    repetir 9
+      juntarPapeles
+      mover
+    EnviarMensaje(2, fiscal)
+  fin
+  
+  robot Robot2EquipoB
+  variables
+    papeles : numero
+  comenzar
+    derecha
+    BloquearEsquina(25, 5)
+    Pos(25,5)
+    mover
+    LiberarEsquina(25,5)
+    repetir 9
+      juntarPapeles
+      mover
+    EnviarMensaje(2,fiscal)
+  fin
+  
+  robot Fiscal
+  variables
+    equipo, cantidadEquipoA, cantidadEquipoB : numero
+  comenzar
+    cantidadEquipoA := 0
+    cantidadEquipoB := 0    
+    repetir 3
+      RecibirMensaje(equipo, *)
+      si equipo = 1
+        cantidadEquipoA := cantidadEquipoA + 1      
+      sino
+        cantidadEquipoB := cantidadEquipoB + 1  
+    si cantidadEquipoA = 2
+      Informar('Gano_Equipo_A', 1)
+    sino
+      Informar('Gano_Equipo_B', 2) 
+  fin 
+variables
+  robot1A : Robot1EquipoA
+  robot2A : Robot2EquipoA
+  robot1B : Robot1EquipoB
+  robot2B : Robot2EquipoB
+  fiscal : Fiscal
+comenzar
+  AsignarArea(robot1A, EquipoA)
+  AsignarArea(robot2A, EquipoA)
+  AsignarArea(robot1B, EquipoB)
+  AsignarArea(robot2B, EquipoB)
+  
+  AsignarArea(fiscal, AreaFiscal)
+  AsignarArea(robot1A, Comienzo)
+  AsignarArea(robot2A, Comienzo)
+  AsignarArea(robot1B, Comienzo)
+  AsignarArea(robot2B, Comienzo)
+  
+  Iniciar(robot1A,1,1)
+  Iniciar(robot2A,2,1)
+  Iniciar(robot1B,3,1)
+  Iniciar(robot2B,4,1)
+  Iniciar(fiscal, 40,40)
+fin

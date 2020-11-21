@@ -1,0 +1,61 @@
+programa ejercicioTeoria
+procesos
+
+  proceso juntarFlores
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+  fin
+  
+  proceso hacerPerimetro
+  comenzar
+    repetir 2
+      repetir 20
+        juntarFlores
+        mover
+      derecha
+      repetir 15
+        juntarFlores
+        mover
+      derecha
+  fin
+  
+  proceso depositarFlores
+  variables
+    av, ca : numero
+  comenzar
+    av := PosAv
+    ca := PosCa
+    mientras HayFlorEnLaBolsa
+      BloquearEsquina(10,10)
+      Pos(10,10)
+      depositarFlor
+      Pos(av, ca)
+      LiberarEsquina(10,10)
+  fin
+  
+areas
+  AreaRobot1 : AreaP(15,15,30,35)
+  AreaRobot2 : AreaP(40,40,55,60)
+  Deposito : AreaC(10,10,10,10)
+robots
+
+  robot Robot
+  comenzar
+    hacerPerimetro
+    depositarFlores
+  fin
+  
+variables
+  robot1 : Robot
+  robot2 : Robot
+comenzar
+  AsignarArea(robot1, AreaRobot1)
+  AsignarArea(robot2, AreaRobot2)
+  
+  AsignarArea(robot1, Deposito)
+  AsignarArea(robot2, Deposito)
+  
+  Iniciar(robot1,15,15)
+  Iniciar(robot2,40,40)
+fin

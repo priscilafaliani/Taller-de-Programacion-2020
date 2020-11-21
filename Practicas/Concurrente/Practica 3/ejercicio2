@@ -1,0 +1,143 @@
+programa ejercicio2
+procesos
+
+  proceso juntarFlores(ES flores : numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      flores := flores + 1
+  fin
+  
+  proceso juntarPapeles(ES papeles : numero)
+  comenzar
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+      papeles := papeles + 1
+  fin
+  
+  proceso izquierda
+  comenzar
+    repetir 3
+      derecha
+  fin
+  
+  proceso hacerLadoCompartidoFlores(ES flores : numero; E av : numero; E ca : numero)
+  comenzar
+    BloquearEsquina(av, ca)
+    mover
+    juntarFlores(flores)
+    izquierda
+    repetir 3
+      ca := ca + 1
+      BloquearEsquina(av, ca)
+      mover
+      LiberarEsquina(av, ca - 1)      
+    juntarFlores(flores)
+    izquierda
+    mover
+    LiberarEsquina(av, ca)  
+  fin
+  
+  proceso hacerLadoFlores(ES flores : numero)
+  comenzar
+    juntarFlores(flores)
+    derecha
+    repetir 3
+      mover
+    juntarFlores(flores)   
+  fin
+  
+  { Recorrido del robot que junta flores }
+  proceso derArribaIzqArriba(ES flores : numero)
+  comenzar
+    derecha
+    repetir 3
+      mover
+    hacerLadoCompartidoFlores(flores, PosAv + 1, PosCa)
+    repetir 3
+      mover
+    hacerLadoFlores(flores)
+  fin
+  
+  proceso hacerLadoCompartidoPapeles(ES papeles : numero; E av : numero; E ca : numero)
+  comenzar
+    BloquearEsquina(av, ca)
+    mover
+    juntarPapeles(papeles)
+    derecha
+    repetir 3
+      ca := ca + 1
+      BloquearEsquina(av, ca)
+      LiberarEsquina(av, ca - 1)
+      mover
+    juntarPapeles(papeles)
+    derecha
+    mover
+    LiberarEsquina(av, ca)
+  fin
+  
+  proceso hacerLadoPapeles(ES papeles : numero)
+  comenzar
+    juntarPapeles(papeles)
+    izquierda
+    repetir 3
+      mover
+    juntarPapeles(papeles)  
+  fin
+  
+  { Recorrido del robot que junta papeles}
+  proceso izqArribaDerArriba(ES papeles : numero)
+  variables
+    avProtegida, caProtegida : numero
+  comenzar
+    izquierda
+    repetir 3
+      mover
+    hacerLadoCompartidoPapeles(papeles, PosAv - 1, PosCa)
+    repetir 3
+      mover
+    hacerLadoPapeles(papeles)
+  fin
+  
+areas
+  {AreaR1 : AreaP(1,1,4,100)}
+  {AreaR2 : AreaP(6,1,9,100)}
+  {CircuitoCompartido : AreaPC(5,1,5,100)}
+  ciudad : AreaC(1,1,100,100)
+robots
+
+  robot RobotFlores
+  variables
+    floresVertice : numero
+  comenzar
+    floresVertice := 0
+    repetir 3
+      derArribaIzqArriba(floresVertice)
+    Informar(floresVertice)
+  fin
+  
+  robot RobotPapeles
+  variables
+    papelesVertice : numero
+  comenzar
+    papelesVertice := 0
+    repetir 3
+      izqArribaDerArriba(papelesVertice)
+    Informar(papelesVertice)   
+  fin
+  
+variables
+  robot1 : RobotFlores 
+  robot2 : RobotPapeles
+comenzar
+ { AsignarArea(robot1, AreaR1) }
+ { AsignarArea(robot2, AreaR2) }
+ { AsignarArea(robot1, CircuitoCompartido) }
+ { AsignarArea(robot2, CircuitoCompartido) }
+  AsignarArea(robot1, ciudad)
+  AsignarArea(robot2, ciudad)
+  Iniciar(robot1, 1, 1)
+  Iniciar(robot2, 9, 1)
+fin
+
+

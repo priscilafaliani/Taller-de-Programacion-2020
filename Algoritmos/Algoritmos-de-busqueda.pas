@@ -14,13 +14,14 @@ end;
 // Recursiva
 procedure busquedaBinaria(numeros : arrNumeros; inicio, fin : indice; num : integer; var pos : indice);
 var mid : integer;
+begin
   if(inicio <= fin) then begin
     mid := (inicio + fin) div 2;
     if(numeros[mid] = num) then
       pos := mid
     else if(num < numeros[mid]) then
       busquedaBinaria(numeros, inicio, (mid - 1), num, pos)
-    else busquedaBinaria(numeros, (mid + 1), fin, num pos)
+    else busquedaBinaria(numeros, (mid + 1), fin, num, pos);
   end;
   else pos := -1;
-begin
+end;

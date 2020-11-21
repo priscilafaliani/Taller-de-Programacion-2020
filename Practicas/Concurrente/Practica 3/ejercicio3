@@ -1,0 +1,60 @@
+programa ejercicio3
+
+procesos
+  proceso ObtenerEsquina(ES avenida : numero; ES calle : numero)
+  variables
+    av, ca : numero
+  comenzar
+    Random(av, 2, 10)
+    Random(ca, 2, 10)
+    avenida := av
+    calle := ca  
+  fin
+
+
+areas
+  Cuadrante : AreaC(2,2,10,10)
+  { El area donde inician los robots }
+  Mostrador : AreaC(1,1,5,1)
+robots
+  robot Recolector
+  comenzar
+  
+  
+  fin
+  
+  robot Jefe
+  variables
+    avenida, calle : numero
+  comenzar
+    EnviarIDs
+    ObtenerEsquina(avenida, calle)
+    LlamarRecolectores(avenida, calle)
+    CalcularQuienJuntoMas
+    Informar('El_que_junto_mas_fue: ', ID)
+  fin
+
+variables
+  recolector1 : Recolector
+  recolector2 : Recolector
+  recolector3 : Recolector
+  recolector4 : Recolector
+  jefe : Jefe
+comenzar
+  AsignarArea(recolector1, Cuadrante)
+  AsignarArea(recolector2, Cuadrante)
+  AsignarArea(recolector3, Cuadrante)
+  AsignarArea(recolector4, Cuadrante)
+
+  AsignarArea(recolector1, Mostrador)
+  AsignarArea(recolector2, Mostrador)
+  AsignarArea(recolector3, Mostrador)
+  AsignarArea(recolector4, Mostrador)
+  AsignarArea(jefe, Mostrador)
+  
+  Iniciar(jefe, 1, 1)
+  Iniciar(recolector1, 2, 1)
+  Iniciar(recolector2, 3, 1)
+  Iniciar(recolector3, 4, 1)
+  Iniciar(recolector4, 5, 1)
+fin

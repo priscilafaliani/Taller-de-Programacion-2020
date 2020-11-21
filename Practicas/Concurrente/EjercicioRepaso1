@@ -1,0 +1,159 @@
+programa ejercicioRepaso1
+
+procesos
+
+  proceso enviarID
+  comenzar
+    EnviarMensaje(1, floreroE1)
+    EnviarMensaje(2, papeleroE1)
+    EnviarMensaje(3, floreroE2)
+    EnviarMensaje(4, papeleroE2)
+  fin
+
+  proceso obtenerEsquinaE1(ES calle : numero; ES avenida : numero)
+  variables
+    av, ca : numero
+  comenzar
+    Random(av, 2, 12)
+    Random(ca, 2, 12)
+    calle := ca
+    avenida := av
+  fin
+  
+  proceso obtenerEsquinaE2(ES calle : numero; ES avenida : numero)
+  variables
+    av, ca : numero
+  comenzar
+    Random(av, 14, 24)
+    Random(ca, 2, 12)
+    calle := ca
+    avenida := av
+  fin
+    
+  proceso juntarFlores
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+  fin
+  
+  proceso tomarPapelDeFuente(E avenida : numero; E calle : numero)
+  comenzar
+    BloquearEsquina(13,13)
+    Pos(13,13)
+    si HayPapelEnLaEsquina
+      tomarPapel
+    Pos(avenida,calle)
+    LiberarEsquina(13,13)
+  fin  
+
+areas
+  EsquinaJefe : AreaP(1,1,1,1)
+  
+  EsquinaFloreroE1 : AreaP(2,1,2,1)
+  EsquinaPapeleroE1 : AreaP(3,1,3,1)
+  AreaE1 : AreaPC(2,2,12,12)
+  
+  EsquinaFloreroE2 : AreaP(14,1,14,1)
+  EsquinaPapeleroE2 : AreaP(15,1,15,1)
+  AreaE2 : AreaPC(14,2,24,12)
+  
+  AreaPapeleros : AreaPC(13,13,13,13)
+  
+robots
+  robot Florero
+  variables
+    ID, calle, avenida, miCa, miAv : numero
+  comenzar
+    miCa := PosCa
+    miAv := PosAv
+    RecibirMensaje(ID, jefe)
+    repetir 3
+      si miAv = 2
+        obtenerEsquinaE1(calle, avenida)
+      sino
+        obtenerEsquinaE2(calle, avenida)
+      BloquearEsquina(avenida, calle)
+      Pos(avenida, calle)
+      juntarFlores
+      Pos(miAv, miCa)
+      LiberarEsquina(avenida, calle)
+    EnviarMensaje(ID, jefe)      
+  fin
+  
+  robot Papelero
+  variables
+    ID, calle, avenida, miCa, miAv : numero
+  comenzar
+    miCa := PosCa
+    miAv := PosAv
+    RecibirMensaje(ID, jefe)
+    repetir 5
+      si miAv = 3
+        obtenerEsquinaE1(calle, avenida)
+      sino 
+        obtenerEsquinaE2(calle, avenida)
+      tomarPapelDeFuente(miAv, miCa)
+      BloquearEsquina(avenida, calle)
+      Pos(avenida, calle)
+      si HayPapelEnLaBolsa
+        depositarPapel
+      Pos(miAv, miCa)
+      LiberarEsquina(avenida, calle)
+    EnviarMensaje(ID, jefe)
+  fin
+  
+  robot Jefe
+  variables
+    cantEquipo1, cantEquipo2, ID : numero
+  comenzar
+    cantEquipo1 := 0
+    cantEquipo2 := 0
+    enviarID
+    repetir 3
+      RecibirMensaje(ID, *)
+      si ID = 1
+        cantEquipo1 := cantEquipo1 + 1
+      sino
+        si ID = 2
+          cantEquipo1 := cantEquipo1 + 1       
+        sino
+          cantEquipo2 := cantEquipo2 + 1  
+          
+    si cantEquipo1 > cantEquipo2
+      Informar('El_equipo_que_primero_termino', 1)
+    sino
+      Informar('El_equipo_que_primero_termino', 2)
+  fin
+  
+variables
+  jefe : Jefe
+  floreroE1 : Florero
+  papeleroE1 : Papelero
+  floreroE2 : Florero  
+  papeleroE2 : Papelero
+comenzar
+  AsignarArea(jefe, EsquinaJefe)
+  
+  AsignarArea(floreroE1, EsquinaFloreroE1)
+  AsignarArea(papeleroE1, EsquinaPapeleroE1)
+  AsignarArea(floreroE1, AreaE1)
+  AsignarArea(papeleroE1, AreaE1)
+  
+  AsignarArea(floreroE2, EsquinaFloreroE2)
+  AsignarArea(papeleroE2, EsquinaPapeleroE2)
+  AsignarArea(floreroE2, AreaE2)
+  AsignarArea(papeleroE2, AreaE2)
+  
+  AsignarArea(papeleroE1, AreaPapeleros)
+  AsignarArea(papeleroE2, AreaPapeleros)
+  
+  Iniciar(jefe, 1,1)
+  Iniciar(floreroE1, 2, 1)
+  Iniciar(papeleroE1,3,1)
+  Iniciar(floreroE2,14,1)
+  Iniciar(papeleroE2,15,1)
+fin
+
+
+
+
